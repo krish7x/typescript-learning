@@ -86,3 +86,59 @@ const omitTodo: TodoPreview4Omit = {
 };
 
 console.log(omitTodo);
+
+//Exclude
+type Dimensions3D = "x" | "y" | "z"; //for 3d -> x,y and z axis
+type Point3D = Record<Dimensions3D, number>; // making it as record of numbers
+
+const dimension3d: Point3D = {
+  x: 1,
+  y: 2,
+  z: 3,
+};
+
+type Dimension2D = Exclude<Dimensions3D, "z">; // for 2d instead of creating new we're excluding z axis from 3D
+type Point2D = Record<Dimension2D, number>; // making it as record of numbers
+
+const dimension2d: Point2D = {
+  x: 1,
+  y: 2,
+};
+
+console.log(dimension3d);
+console.log(dimension2d);
+
+//Extract
+type WaterMolecule = "H2" | "O"; // H2O is the formula for water
+type PointWaterMolecule = Record<WaterMolecule, string>; // making it as record of string
+
+type OxygenMolecule = Extract<WaterMolecule, "O">; // Extraction O from Water, O is the formula for oxygen
+type PointOxygenMolecule = Record<OxygenMolecule, string>; // making it as record of string
+
+const waterMolecule: PointWaterMolecule = {
+  H2: "Hydrogen",
+  O: "Oxygen",
+};
+
+const oxygenMolecule: PointOxygenMolecule = {
+  O: waterMolecule.O,
+};
+
+console.log(waterMolecule);
+console.log(oxygenMolecule);
+
+//NonNullable
+type WithNull = string | null | undefined;
+
+const getNullableData = (data: WithNull) => {
+  return data;
+};
+
+type WithoutNull = NonNullable<WithNull>;
+
+const getNonNullableData = (data: WithoutNull) => {
+  return data;
+};
+
+console.log(getNullableData(null)); //acceptable
+//console.log(getNonNullableData(null)); //not accepted
